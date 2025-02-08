@@ -97,7 +97,7 @@ class ProductTransactionResource extends Resource
                             }),
 
                             Forms\Components\Select::make('promo_code_id')
-                            ->relationships('promoCode', 'code')
+                            ->relationship('promoCode', 'code')
                             ->searchable()
                             ->preload()
                             ->live()
@@ -149,7 +149,7 @@ class ProductTransactionResource extends Resource
                             ->required()
                             ->maxLength(255),
 
-                            Forms\Components\TextInput::make('address')
+                            Forms\Components\TextArea::make('address')
                             ->rows(5)
                             ->required(),
 
@@ -232,15 +232,15 @@ class ProductTransactionResource extends Resource
                     $record->save();
 
                     Notification::make()
-                    ->title('Order Approved')
-                    ->success()
-                    ->body('Order has been approved')
-                    ->send();
+                        ->title('Order Approved')
+                        ->success()
+                        ->body('Order has been approved')
+                        ->send();
                 })
 
                 ->color('success')
                 ->requiresConfirmation()
-                ->visible(fn (ProductTransaction $record) => $record->is_paid),
+                ->visible(fn (ProductTransaction $record) => !$record->is_paid),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
