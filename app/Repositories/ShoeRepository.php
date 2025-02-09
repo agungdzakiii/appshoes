@@ -1,5 +1,7 @@
 <?php 
 
+namespace App\Repositories;
+
 use App\Models\Shoe;
 use App\Repositories\Contracts\ShoeRepositoryInterface;
 

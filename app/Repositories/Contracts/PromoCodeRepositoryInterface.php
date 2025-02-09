@@ -1,6 +1,6 @@
 <?php
 
-use App\Repositories\Contracts;
+namespace App\Repositories\Contracts;
 
 interface PromoCodeRepositoryInterface {
     public function getAllPromoCode();
