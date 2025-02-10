@@ -31,11 +31,13 @@ class ProductTransaction extends Model
         'proof',
     ];
 
-    public static function generateUniqueTrxId(){
+    public static function generateUniqueTrxId(): string {
         $prefix = 'SH';
         do {
             $randomString = $prefix . mt_rand(1000, 9999);
         } while (self::where('booking_trx_id', $randomString)->exists());
+
+        return $randomString;
     }
 
     public function shoe(): BelongsTo {

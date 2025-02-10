@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Shoe;
+use App\Services\FrontService;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -17,6 +18,7 @@ class FrontController extends Controller
 
     public function index() {
         $data = $this->frontService->getFrontPageData();
+        
         return view('front.index', $data);
     }
 
