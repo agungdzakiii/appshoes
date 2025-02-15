@@ -16,20 +16,25 @@ class OrderController extends Controller
     protected $orderService;
 
     public function __construct(OrderService $orderService ) {
+        
         $this->orderService = $orderService;
+
     }
 
     public function saveOrder(StoreOrderRequest $request, Shoe $shoe) {
+        
         $validated = $request->validated();
+
         $validated['shoe_id'] = $shoe->id;
+
         $this->orderService->beginOrder($validated);
 
         return redirect()->route('front.booking', $shoe->slug);
+
     }
 
     public function booking() {
         $data = $this->orderService->getOrderDetails();
-        dd($data);
         return view ('order.order', $data);
     }
 

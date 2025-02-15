@@ -26,7 +26,7 @@ class OrderService {
         $this->shoeRepository = $shoeRepository;
     }
     
-    public function beginOrder(array $data) {
+    public function beginOrder(array $data){
         $orderData = [
             'shoe_size' => $data['shoe_size'],
             'size_id' => $data['size_id'],

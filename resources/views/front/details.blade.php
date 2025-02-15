@@ -96,16 +96,17 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="{{asset('js/details.js')}}"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function {
+            document.addEventListener('DOMContentLoaded', function() {
                 const sizeRadios = document.querySelectorAll('input[name="shoe_size"]');
                 const sizeIdInput = document.getElementById('size_id');
 
                 sizeRadios.forEach(radio => {
-                    radio.addEventListener('change' function {
+                    radio.addEventListener('change', function() {
                         const selectedSizeId = this.getAttribute('data-size-id');
                         sizeIdInput.value = selectedSizeId;
                     });
                 });
             });
+        </script>
     </body>
 </html>
