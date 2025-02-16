@@ -2,7 +2,7 @@
 <div class="flex w-[260px] h-[160px] shrink-0 overflow-hidden mx-auto mb-10">
     <img id="main-thumbnail" src="{{Storage::url($shoe->photos()->latest()->first()->photo)}}" class="w-full h-full object-contain object-center" alt="thumbnail">
 </div>
-<form class="flex flex-col gap-5">
+<form wire:submit.prevent="submit" class="flex flex-col gap-5">
     <div class="flex flex-col rounded-[20px] p-4 mx-4 pb-5 gap-5 bg-white">
         <div id="info" class="flex items-center justify-between">
             <div class="flex flex-col">
@@ -85,7 +85,7 @@
                     </p>
                     <p class="text-sm leading-[21px] text-[#878785]">Grand total</p>
                 </div>
-                <button type="submit" class="rounded-full p-[12px_20px] bg-[#C5F277] font-bold">
+                <button class="rounded-full p-[12px_20px] bg-[#C5F277] font-bold">
                     Continue
                 </button>
             </div>
