@@ -53,7 +53,7 @@ class OrderController extends Controller
 
     public function payment() {
         $data = $this->orderService->getOrderDetails();
-        dd($data);
+        // dd($data);
         return view ('order.payment', $data);
     }
 
@@ -70,5 +70,6 @@ class OrderController extends Controller
 
     public function orderFinished(ProductTransaction $productTransaction) {
         dd($productTransaction);
+        // return view('order.order_finished', compact('productTransaction'));
     }
 }
