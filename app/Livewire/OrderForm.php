@@ -34,6 +34,36 @@ class OrderForm extends Component
         $this->grandTotalAmount = $shoe->price;
     }
 
+    public function updatedQuantity() {
+        $this->validateOnly('quantity', [
+            'quantity' => 'required|integer|min:1|max:' . $this->shoe->stock,
+        ],
+        [
+            'quantity.max' => 'Stock tidak tersedia!',
+        ]);
+
+        $this->calculateTotal();
+    }
+
+    protected function calculateTotal(): void {
+       $this->subTotalAmount = $this->shoe->price * $this->quantity;
+       $this->grandTotalAmount = $this->subTotalAmount - $this->discount;
+    }
+
+    public function incrementQuantity() {
+        if ($this->quantity < $this->shoe->stock) {
+            $this->quantity++;
+            $this->calculateTotal();
+        }
+    }
+
+    public function decrementQuantity() {
+        if ($this->quantity > 1) {
+            $this->quantity--;
+            $this->calculateTotal();
+        }
+    }
+
     public function render()
     {
         return view('livewire.order-form');
