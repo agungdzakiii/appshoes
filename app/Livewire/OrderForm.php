@@ -109,6 +109,7 @@ class OrderForm extends Component
             'email' => $validatedData['email'],
             'grand_total_amount' => $this->grandTotalAmount,
             'sub_total_amount' => $this->subTotalAmount,
+            'total_discount_amount' => $this->totalDiscountAmount,
             'discount' => $this->discount,
             'promo_code' => $this->promoCode,
             'promo_code_id' => $this->promoCodeId,
