@@ -79,16 +79,16 @@ class OrderService {
 
     public function paymentConfirm(array $validated) {
         $orderData = $this->orderRepository->getOrderDataFromSession();
-
+    
         $productTransactionId = null;
-
+    
         try {
-            DB::transaction(function() use ($validated, $productTransactionId, $orderData) {
+            DB::transaction(function() use ($validated, &$productTransactionId, $orderData) { // Tambah "&"
                 if (isset($validated['proof'])) {
                     $proofPath = $validated['proof']->store('proofs', 'public');
                     $validated['proof'] = $proofPath;
                 }
-
+    
                 $validated['name'] = $orderData['name'];
                 $validated['email'] = $orderData['email'];
                 $validated['phone'] = $orderData['phone'];
@@ -104,9 +104,9 @@ class OrderService {
                 $validated['shoe_size'] = $orderData['size_id'];
                 $validated['is_paid'] = false;
                 $validated['booking_trx_id'] = ProductTransaction::generateUniqueTrxId();
-
+    
                 $newTransaction = $this->orderRepository->createTransaction($validated);
-
+    
                 $productTransactionId = $newTransaction->id;
             });
         } catch (\Exception $e) {
@@ -114,7 +114,7 @@ class OrderService {
             session()->flash('error', $e->getMessage());
             return null;
         }
-
+    
         return $productTransactionId;
     }
 

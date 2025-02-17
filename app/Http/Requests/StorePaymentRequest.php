@@ -23,7 +23,7 @@ class StorePaymentRequest extends FormRequest
     {
         return [
             //
-            'proof' => ['required','image','mimes:jpg,png,jpeg'],
+            'proof' => ['required','image','mimes:jpeg,png,jpg'],
         ];
     }
 }
