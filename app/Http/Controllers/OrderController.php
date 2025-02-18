@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCustomerDataRequest;
+use App\Models\Shoe;
+use Illuminate\Http\Request;
+use App\Services\OrderService;
+use App\Models\ProductTransaction;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\StorePaymentRequest;
-use App\Models\ProductTransaction;
-use App\Models\Shoe;
-use App\Services\OrderService;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCheckBookingRequest;
+use App\Http\Requests\StoreCustomerDataRequest;
 
 class OrderController extends Controller
 {
-    //
     protected $orderService;
 
-    public function __construct(OrderService $orderService ) {
-        
+    public function __construct(OrderService $orderService)
+    {
         $this->orderService = $orderService;
-
     }
 
-    public function saveOrder(StoreOrderRequest $request, Shoe $shoe) {
-        
+    public function saveOrder(StoreOrderRequest $request, Shoe $shoe)
+    {
         $validated = $request->validated();
 
         $validated['shoe_id'] = $shoe->id;
@@ -30,34 +29,36 @@ class OrderController extends Controller
         $this->orderService->beginOrder($validated);
 
         return redirect()->route('front.booking', $shoe->slug);
-
     }
 
-    public function booking() {
+    public function booking()
+    {
         $data = $this->orderService->getOrderDetails();
-        return view ('order.order', $data);
+        return view('order.order', $data);
     }
 
-    public function customerData() {
+    public function customerData()
+    {
         $data = $this->orderService->getOrderDetails();
-        // dd($data);
         return view('order.customer_data', $data);
     }
 
-    public function saveCustomerData(StoreCustomerDataRequest $request) {
+    public function saveCustomerData(StoreCustomerDataRequest $request)
+    {
         $validated = $request->validated();
         $this->orderService->updateCustomerData($validated);
 
         return redirect()->route('front.payment');
     }
 
-    public function payment() {
+    public function payment()
+    {
         $data = $this->orderService->getOrderDetails();
-        // dd($data);
-        return view ('order.payment', $data);
+        return view('order.payment', $data);
     }
 
-    public function paymentConfirm(StorePaymentRequest $request) {
+    public function paymentConfirm(StorePaymentRequest $request)
+    {
         $validated = $request->validated();
         $productTransactionId = $this->orderService->paymentConfirm($validated);
 
@@ -65,10 +66,11 @@ class OrderController extends Controller
             return redirect()->route('front.order_finished', $productTransactionId);
         }
 
-        return redirect()->route('front.index')->withErrors(['error' => 'Pembayaran gagal, coba lagi.']);
+        return redirect()->route('front.index')->withErrors(['error' => 'Payment failed. Please try again.']);
     }
 
-    public function orderFinished(ProductTransaction $productTransaction) {
+    public function orderFinished(ProductTransaction $productTransaction)
+    {
         // dd($productTransaction);
         return view('order.order_finished', compact('productTransaction'));
     }

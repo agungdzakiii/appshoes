@@ -8,6 +8,6 @@ interface OrderRepositoryInterface {
     public function saveToSession(array $data);
     public function updateSessionData (array $data);
     public function getOrderDataFromSession();
-
+    public function clearSession();
 
 }
