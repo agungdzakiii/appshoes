@@ -21,7 +21,8 @@ class FrontController extends Controller
         return view('front.index', $data);
     }
 
-    public function details(Shoe $shoe){
+    public function details(Shoe $shoe)
+    {
         return view('front.details', compact('shoe'));
     }
 
