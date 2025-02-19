@@ -111,7 +111,7 @@ class OrderForm extends Component
         ];
     }
 
-    public function gatherBookingData(array $validatedData)
+    protected function gatherBookingData(array $validatedData)
     {
         return [
             'name' => $validatedData['name'],

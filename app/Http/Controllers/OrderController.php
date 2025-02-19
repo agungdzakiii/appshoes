@@ -74,4 +74,19 @@ class OrderController extends Controller
         // dd($productTransaction);
         return view('order.order_finished', compact('productTransaction'));
     }
+
+    public function checkBooking(){
+        return view('order.my_order');
+    }
+
+    public function checkBookingDetails(StoreCheckBookingRequest $request){
+        $validated = $request->validated();
+        $orderDetails = $this->orderService->getMyOrderDetails($validated);
+
+        if ($orderDetails) {
+            return view('order.my_order_details', compact('orderDetails'));
+        }
+
+        return redirect()->route('front.check_booking')->withErrors(['error' => 'Transaction Not Found']);
+    }
 }
