@@ -34,7 +34,7 @@
                 <div id="bottom-nav" class="relative flex h-[100px] w-full shrink-0">
                     <nav class="fixed bottom-5 w-full max-w-[640px] px-4 z-30">
                         <div class="grid grid-flow-col auto-cols-auto items-center justify-between rounded-full bg-[#2A2A2A] p-2 px-[30px]">
-                            <a href="index.html" class="mx-auto w-full">
+                            <a href="{{route('front.index')}}" class="mx-auto w-full">
                                 <img src="{{asset('assets/images/icons/3dcube-white.svg')}}" class="w-6 h-6" alt="icon">
                             </a>
                             <a href="check-booking.html" class="active flex shrink-0 -mx-[22px]">
