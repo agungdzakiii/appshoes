@@ -11,8 +11,9 @@ class ShoeRepository implements ShoeRepositoryInterface {
         return Shoe::where('is_popular', true)->take($limit)->get();
     }
 
-    public function searchByName(string $keyword) {
-        return Shoe::where('name', 'LIKE', '%', $keyword, '%')->get();
+    public function searchByName(string $keyword)
+    {
+        return Shoe::where('name', 'LIKE', '%' . $keyword . '%')->get();
     }
 
     public function getAllNewShoes() {
